@@ -11,9 +11,9 @@ template <typename T>
 ostream& operator <<(ostream& out, const BaseMatrix<T>& rhs)
 {
   out << setprecision(5);
-  for(unsigned long i = 0; i < rhs.getNumRows(); i++)
+  for(uint32_t i = 0; i < rhs.getNumRows(); i++)
   {
-    for (unsigned long j = 0; j < rhs.getNumColumns(); j++)
+    for (uint32_t j = 0; j < rhs.getNumColumns(); j++)
     {
       out << setw(12) << rhs(i, j);
     }

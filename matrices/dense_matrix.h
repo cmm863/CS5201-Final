@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn DenseMatrix(unsigned long m, unsigned long n)
+/// @fn DenseMatrix(uint32_t m, uint32_t n)
 /// @brief Overload of the constructor which creates an mxn matrix.
 /// @pre None.
 /// @post A DenseMatrix object of type T is created of size mxn. m_vectors points to
@@ -46,17 +46,17 @@ public:
   // Constructor information
   DenseMatrix();
   DenseMatrix(const shared_ptr<BaseMatrix<T>> rhs);
-  DenseMatrix(unsigned long m, unsigned long n);
+  DenseMatrix(uint32_t m, uint32_t n);
   virtual ~DenseMatrix();
 
   // Getter
   virtual MatrixType type() const;
 
   // Index operators
-  virtual MathVector<T>& operator [](unsigned long index);
-  virtual MathVector<T>& operator [](unsigned long index) const;
-  virtual T operator ()(unsigned long row_index, unsigned long column_index) const;
-  virtual void operator ()(unsigned long row_index, unsigned long column_index, T element);
+  virtual MathVector<T>& operator [](uint32_t index);
+  virtual MathVector<T>& operator [](uint32_t index) const;
+  virtual T operator ()(uint32_t row_index, uint32_t column_index) const;
+  virtual void operator ()(uint32_t row_index, uint32_t column_index, T element);
 
   // Matrix operations
   virtual shared_ptr<BaseMatrix<T>> transpose() const;
@@ -65,7 +65,7 @@ public:
   DenseMatrix<T> operator +(const BaseMatrix<T>& rhs) const;
   DenseMatrix<T> operator -(const BaseMatrix<T>& rhs) const;
   DenseMatrix<T> operator *(const BaseMatrix<T>& rhs) const;
-  
+
   // Replacements
   virtual shared_ptr<BaseMatrix<T>> clone() const;
 };

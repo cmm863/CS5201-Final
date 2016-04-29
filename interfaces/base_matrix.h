@@ -17,7 +17,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn unsigned long getNumRows() const
+/// @fn uint32_t getNumRows() const
 /// @brief Get function for m_num_rows.
 /// @pre None.
 /// @post Returns number of rows for the matrix.
@@ -25,7 +25,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn unsigned long getNumColumns() const
+/// @fn uint32_t getNumColumns() const
 /// @brief Get function for m_num_columns.
 /// @pre None.
 /// @post Returns number of columns for the matrix.
@@ -41,7 +41,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual MathVector<T>& operator [](unsigned long index)
+/// @fn virtual MathVector<T>& operator [](uint32_t index)
 /// @brief Virtual function to return a MathVector reference of the row.
 /// @pre Index needs to be less than the number of rows.
 /// @post Returns a reference to the MathVector at index.
@@ -50,7 +50,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual MathVector<T>& operator [](unsigned long index) const
+/// @fn virtual MathVector<T>& operator [](uint32_t index) const
 /// @brief Virtual function to return a MathVector reference of the row that cannot change the object.
 /// @pre Index needs to be less than the number of rows.
 /// @post Returns a reference to the MathVector at index that cannot change the object.
@@ -59,7 +59,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual T operator ()(unsigned long row_index, unsigned long column_index) const
+/// @fn virtual T operator ()(uint32_t row_index, uint32_t column_index) const
 /// @brief Virtual function to implement a faux double [][] operator
 ///      that cannot change the object.
 /// @pre row_index needs to be less than number of rows.
@@ -71,7 +71,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual void operator ()(unsigned long row_index, unsigned long column_index, T element)
+/// @fn virtual void operator ()(uint32_t row_index, uint32_t column_index, T element)
 /// @brief Virtual function to implement a faux double [][] operator that sets matrix[i][j] = to element.
 /// @pre row_index needs to be less than number of rows.
 ///      column_index needs to be less than the number of columns.
@@ -177,21 +177,21 @@ class BaseMatrix
 {
 protected:
   MathVector<T> * m_vectors;
-  unsigned long m_num_rows;
-  unsigned long m_num_columns;
+  uint32_t m_num_rows;
+  uint32_t m_num_columns;
 public:
   virtual ~BaseMatrix() {}
 
   // Getters
-  unsigned long getNumRows() const { return m_num_rows; }
-  unsigned long getNumColumns() const { return m_num_columns; }
+  uint32_t getNumRows() const { return m_num_rows; }
+  uint32_t getNumColumns() const { return m_num_columns; }
   virtual MatrixType type() const = 0;
 
   // Index operators
-  virtual MathVector<T>& operator [](unsigned long index) = 0;
-  virtual MathVector<T>& operator [](unsigned long index) const = 0;
-  virtual T operator ()(unsigned long row_index, unsigned long column_index) const = 0;
-  virtual void operator ()(unsigned long row_index, unsigned long column_index, T element) = 0;
+  virtual MathVector<T>& operator [](uint32_t index) = 0;
+  virtual MathVector<T>& operator [](uint32_t index) const = 0;
+  virtual T operator ()(uint32_t row_index, uint32_t column_index) const = 0;
+  virtual void operator ()(uint32_t row_index, uint32_t column_index, T element) = 0;
 
   // Matrix operations
   virtual shared_ptr<BaseMatrix<T>> transpose() const = 0;
