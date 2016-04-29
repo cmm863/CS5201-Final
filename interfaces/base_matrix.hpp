@@ -8,14 +8,14 @@
 #define BASE_MATRIX_HPP
 
 template <typename T>
-ostream& operator <<(ostream& out, BaseMatrix<T>* rhs)
+ostream& operator <<(ostream& out, const BaseMatrix<T>& rhs)
 {
   out << setprecision(5);
-  for(unsigned long i = 0; i < rhs->getNumRows(); i++)
+  for(unsigned long i = 0; i < rhs.getNumRows(); i++)
   {
-    for (unsigned long j = 0; j < rhs->getNumColumns(); j++)
+    for (unsigned long j = 0; j < rhs.getNumColumns(); j++)
     {
-      out << setw(12) << (*rhs)(i, j);
+      out << setw(12) << rhs(i, j);
     }
     out << endl;
   }

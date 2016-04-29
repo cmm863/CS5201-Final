@@ -169,7 +169,7 @@ template <typename T>
 class BaseMatrix;
 
 template <typename T>
-ostream& operator <<(ostream& out, const BaseMatrix<T>* rhs);
+ostream& operator <<(ostream& out, const BaseMatrix<T>& rhs);
 
 
 template <typename T>
@@ -195,16 +195,12 @@ public:
 
   // Matrix operations
   virtual shared_ptr<BaseMatrix<T>> transpose() const = 0;
-  virtual shared_ptr<BaseMatrix<T>> operator *(double c) const = 0;
-  virtual shared_ptr<BaseMatrix<T>> operator +(const BaseMatrix<T>& rhs) const = 0;
-  virtual shared_ptr<BaseMatrix<T>> operator -(const BaseMatrix<T>& rhs) const = 0;
-  virtual shared_ptr<BaseMatrix<T>> operator *(const BaseMatrix<T>& rhs) const = 0;
 
   // Replacements for operations that don't work with inherited classes
   virtual shared_ptr<BaseMatrix<T>> clone() const = 0;
 
 
-  friend ostream& operator << <>(ostream& out, const BaseMatrix<T>* rhs);
+  friend ostream& operator << <>(ostream& out, const BaseMatrix<T>& rhs);
 };
 
 #include "base_matrix.hpp"

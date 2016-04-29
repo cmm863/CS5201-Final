@@ -45,6 +45,7 @@ class DenseMatrix : public BaseMatrix<T>
 public:
   // Constructor information
   DenseMatrix();
+  DenseMatrix(const shared_ptr<BaseMatrix<T>> rhs);
   DenseMatrix(unsigned long m, unsigned long n);
   virtual ~DenseMatrix();
 
@@ -59,11 +60,12 @@ public:
 
   // Matrix operations
   virtual shared_ptr<BaseMatrix<T>> transpose() const;
-  virtual shared_ptr<BaseMatrix<T>> operator *(double c) const;
-  virtual shared_ptr<BaseMatrix<T>> operator +(const BaseMatrix<T>& rhs) const;
-  virtual shared_ptr<BaseMatrix<T>> operator -(const BaseMatrix<T>& rhs) const;
-  virtual shared_ptr<BaseMatrix<T>> operator *(const BaseMatrix<T>& rhs) const;
 
+  DenseMatrix<T> operator *(double c) const;
+  DenseMatrix<T> operator +(const BaseMatrix<T>& rhs) const;
+  DenseMatrix<T> operator -(const BaseMatrix<T>& rhs) const;
+  DenseMatrix<T> operator *(const BaseMatrix<T>& rhs) const;
+  
   // Replacements
   virtual shared_ptr<BaseMatrix<T>> clone() const;
 };

@@ -16,6 +16,19 @@ DenseMatrix<T>::DenseMatrix()
 }
 
 template <typename T>
+DenseMatrix<T>::DenseMatrix(const shared_ptr<BaseMatrix<T>> rhs)
+{
+  this->m_num_rows = rhs->getNumRows();
+  this->m_num_columns = rhs->getNumColumns();
+  this->m_vectors = new MathVector<T>[this->m_num_rows];
+
+  for(uint32_t i = 0; i < this->m_num_rows; i++)
+  {
+    this->m_vectors[i] = (*rhs)[i];
+  }
+}
+
+template <typename T>
 DenseMatrix<T>::DenseMatrix(unsigned long m, unsigned long n)
 {
   this->m_num_rows = m;
@@ -80,50 +93,52 @@ shared_ptr<BaseMatrix<T>> DenseMatrix<T>::transpose() const
   return ret;
 }
 
+
 template <typename T>
-shared_ptr<BaseMatrix<T>> DenseMatrix<T>::operator*(double c) const
+DenseMatrix<T> DenseMatrix<T>::operator*(double c) const
 {
-  shared_ptr<BaseMatrix<T>> ret = this->clone();
-  for(unsigned long i = 0; i < ret->getNumRows(); i++)
-    (*ret)[i] = c * (*ret)[i];
+  DenseMatrix ret(this->clone());
+  for(unsigned long i = 0; i < ret.getNumRows(); i++)
+    ret[i] = c * ret[i];
   return ret;
 }
 
 template <typename T>
-shared_ptr<BaseMatrix<T>> DenseMatrix<T>::operator+(const BaseMatrix<T>& rhs) const
+DenseMatrix<T> DenseMatrix<T>::operator+(const BaseMatrix<T>& rhs) const
 {
   if(this->m_num_columns != rhs.getNumColumns() || this->m_num_rows != rhs.getNumRows())
     throw domain_error("Sizes not equal. + DenseMatrix");
 
-  shared_ptr<BaseMatrix<T>> ret = this->clone();
-  for(unsigned long i = 0; i < ret->getNumRows(); i++)
-    (*ret)[i] += rhs[i];
+  DenseMatrix ret(this->clone());
+  for(unsigned long i = 0; i < ret.getNumRows(); i++)
+    ret[i] += rhs[i];
   return ret;
 }
 
+
 template <typename T>
-shared_ptr<BaseMatrix<T>> DenseMatrix<T>::operator-(const BaseMatrix<T>& rhs) const
+DenseMatrix<T> DenseMatrix<T>::operator-(const BaseMatrix<T>& rhs) const
 {
   if(this->m_num_columns != rhs.getNumColumns() || this->m_num_rows != rhs.getNumRows())
     throw domain_error("Sizes not equal. - DenseMatrix");
 
-  shared_ptr<BaseMatrix<T>> ret = this->clone();
-  for(unsigned long i = 0; i < ret->getNumRows(); i++)
-    (*ret)[i] -= rhs[i];
+  DenseMatrix ret(this->clone());
+  for(unsigned long i = 0; i < ret.getNumRows(); i++)
+    ret[i] -= rhs[i];
   return ret;
 }
 
 template <typename T>
-shared_ptr<BaseMatrix<T>> DenseMatrix<T>::operator*(const BaseMatrix<T>& rhs) const
+DenseMatrix<T> DenseMatrix<T>::operator*(const BaseMatrix<T>& rhs) const
 {
   if(this->getNumColumns() != rhs.getNumRows())
     throw domain_error("Matrix sizes not compatible: * DenseMatrix.");
 
-  shared_ptr<BaseMatrix<T>> ret = make_shared<DenseMatrix<T>>(this->getNumRows(), rhs.getNumColumns());
-  for(unsigned long i = 0; i < ret->getNumRows(); i++)
-    for(unsigned long j = 0; j < ret->getNumColumns(); j++)
+  DenseMatrix ret(this->getNumRows(), rhs.getNumColumns());
+  for(unsigned long i = 0; i < ret.getNumRows(); i++)
+    for(unsigned long j = 0; j < ret.getNumColumns(); j++)
       for(unsigned long k = 0; k < this->getNumColumns(); k++)
-        (*ret)[i][j] += (*this)(i, k) * rhs(k, j);
+        ret[i][j] += (*this)(i, k) * rhs(k, j);
 
   return ret;
 }

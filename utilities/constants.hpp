@@ -10,6 +10,7 @@
 namespace constants
 {
   // File paths
+  const std::string DENSE_INPUT_FILE = "test_inputs/dense_input.in";
   const std::string TRIDIAGONAL_INPUT_FILE = "test_inputs/trid_input.in";
   const std::string DIAGONAL_INPUT_FILE = "test_inputs/diag_input.in";
   const std::string LOWER_TRIANGULAR_INPUT_FILE = "test_inputs/lower_tri_input.in";
