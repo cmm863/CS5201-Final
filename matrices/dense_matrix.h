@@ -39,6 +39,7 @@
 #ifndef DENSE_MATRIX_H
 #define DENSE_MATRIX_H
 
+
 template <typename T>
 class DenseMatrix : public BaseMatrix<T>
 {
@@ -47,6 +48,7 @@ public:
   DenseMatrix();
   DenseMatrix(const shared_ptr<BaseMatrix<T>> rhs);
   DenseMatrix(uint32_t m, uint32_t n);
+  DenseMatrix(DenseMatrix&& other);
   virtual ~DenseMatrix();
 
   // Getter
@@ -61,6 +63,8 @@ public:
   // Matrix operations
   virtual shared_ptr<BaseMatrix<T>> transpose() const;
 
+  // Operators
+  DenseMatrix<T>& operator =(DenseMatrix<T> other);
   DenseMatrix<T> operator *(double c) const;
   DenseMatrix<T> operator +(const BaseMatrix<T>& rhs) const;
   DenseMatrix<T> operator -(const BaseMatrix<T>& rhs) const;
@@ -68,6 +72,7 @@ public:
 
   // Replacements
   virtual shared_ptr<BaseMatrix<T>> clone() const;
+
 };
 
 #include "dense_matrix.hpp"

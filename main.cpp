@@ -25,25 +25,35 @@ void run_generic_test(MatrixType mt)
   ifstream file_in;
   int matrix_size;
   double temp;
+  DenseMatrix<double> matrix_a, matrix_b;
 
   file_in.open(get_input_file(mt));
-  if(!file_in.is_open())
+
+  if(file_in.is_open())
+  {
+    // Take in size
+    file_in >> matrix_size;
+
+    // Create matrix
+    matrix_a = DenseMatrix<double>(matrix_size, matrix_size);
+    cout << "After made matrix_a" << endl;
+    cout << matrix_a << endl;
+
+    for(uint32_t i = 0; i < matrix_a.getNumRows(); i++)
+      for(uint32_t j = 0; j < matrix_a.getNumColumns(); j++)
+      {
+        file_in >> temp;
+        matrix_a(i, j, temp);
+        cout << matrix_a(i, j) << endl;
+      }
+  }
+  else
+  {
     return;
-  // Take in size
-  file_in >> matrix_size;
-
-  // Create matrix
-  DenseMatrix<double> matrix_a(matrix_size, matrix_size);
-
-  for(uint32_t i = 0; i < matrix_a.getNumRows(); i++)
-    for(uint32_t j = 0; j < matrix_a.getNumColumns(); j++)
-    {
-      file_in >> temp;
-      matrix_a(i, j, temp);
-    }
+  }
   file_in.close();
 
-  DenseMatrix<double> matrix_b(matrix_a.clone());
+  matrix_b = DenseMatrix<double>(matrix_a.clone());
 
   cout << "=== Matrix A ===" << endl;
   cout << matrix_a << endl;

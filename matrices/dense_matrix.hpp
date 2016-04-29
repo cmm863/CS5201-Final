@@ -43,6 +43,15 @@ DenseMatrix<T>::DenseMatrix(uint32_t m, uint32_t n)
 }
 
 template <typename T>
+DenseMatrix<T>::DenseMatrix(DenseMatrix<T>&& other)
+{
+  this->m_num_rows = other.m_num_rows;
+  this->m_num_columns = other.m_num_columns;
+  this->m_vectors = other.m_vectors;
+  other.m_vectors = nullptr;
+}
+
+template <typename T>
 DenseMatrix<T>::~DenseMatrix()
 {
   delete [] this->m_vectors;
@@ -93,6 +102,13 @@ shared_ptr<BaseMatrix<T>> DenseMatrix<T>::transpose() const
   return ret;
 }
 
+template <typename T>
+DenseMatrix<T>& DenseMatrix<T>::operator =(DenseMatrix<T> other)
+{
+  bm_swap(*this, other);
+
+  return *this;
+}
 
 template <typename T>
 DenseMatrix<T> DenseMatrix<T>::operator*(double c) const
@@ -151,5 +167,6 @@ shared_ptr<BaseMatrix<T>> DenseMatrix<T>::clone() const
     (*ret)[i] = this->m_vectors[i];
   return ret;
 }
+
 
 #endif //DENSE_MATRIX_HPP

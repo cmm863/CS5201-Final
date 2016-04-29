@@ -171,6 +171,8 @@ class BaseMatrix;
 template <typename T>
 ostream& operator <<(ostream& out, const BaseMatrix<T>& rhs);
 
+template <typename T>
+void bm_swap(BaseMatrix<T>& lhs, BaseMatrix<T>& rhs);
 
 template <typename T>
 class BaseMatrix
@@ -201,6 +203,7 @@ public:
 
 
   friend ostream& operator << <>(ostream& out, const BaseMatrix<T>& rhs);
+  friend void bm_swap <>(BaseMatrix<T>& lhs, BaseMatrix<T>& rhs);
 };
 
 #include "base_matrix.hpp"

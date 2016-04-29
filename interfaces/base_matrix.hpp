@@ -22,4 +22,12 @@ ostream& operator <<(ostream& out, const BaseMatrix<T>& rhs)
   return out;
 }
 
+template <typename T>
+void bm_swap(BaseMatrix<T>& lhs, BaseMatrix<T>& rhs)
+{
+  swap(lhs.m_num_rows, rhs.m_num_rows);
+  swap(lhs.m_num_columns, rhs.m_num_columns);
+  swap(lhs.m_vectors, rhs.m_vectors);
+}
+
 #endif //BASE_MATRIX_HPP
