@@ -18,7 +18,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn MathVector<T>::MathVector(unsigned long size)
+/// @fn MathVector<T>::MathVector(uint32_t size)
 /// @brief Overload of constructor which takes an int for size
 /// @pre None
 /// @post A MathVector class of type T is created with m_size size
@@ -33,7 +33,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn unsigned long T::size() const
+/// @fn uint32_t T::size() const
 /// @brief Get function for m_size.
 /// @pre None.
 /// @post Returns size of MathVector.
@@ -41,7 +41,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn unsigned long T::capacity() const
+/// @fn uint32_t T::capacity() const
 /// @brief Get function for m_capacity.
 /// @pre None.
 /// @post Returns capacity of MathVector.
@@ -150,19 +150,19 @@ class MathVector
 {
 private:
   T * m_elements;
-  unsigned long m_size;
-  unsigned long m_capacity;
+  uint32_t m_size;
+  uint32_t m_capacity;
 public:
   // Constructors
   MathVector();
-  MathVector(unsigned long capacity);
+  MathVector(uint32_t capacity);
   MathVector(const MathVector& other); // Rule of 3
   MathVector(MathVector&& other); // Rule of 4 1/2
   ~MathVector(); // Rule of 3
 
   // Getters
-  unsigned long size() const;
-  unsigned long capacity() const;
+  uint32_t size() const;
+  uint32_t capacity() const;
 
   // Functions
   bool push(T element);
@@ -170,7 +170,7 @@ public:
   T magnitude();
 
   // Operators
-  T& operator [](unsigned long index);
+  T& operator [](uint32_t index);
   MathVector& operator =(MathVector other); // Rule of 3
   MathVector& operator +=(const MathVector& rhs);
   MathVector& operator -=(const MathVector& rhs);

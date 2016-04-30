@@ -39,7 +39,6 @@
 #ifndef DENSE_MATRIX_H
 #define DENSE_MATRIX_H
 
-
 template <typename T>
 class DenseMatrix : public BaseMatrix<T>
 {
@@ -47,6 +46,7 @@ public:
   // Constructor information
   DenseMatrix();
   DenseMatrix(const shared_ptr<BaseMatrix<T>> rhs);
+  DenseMatrix(uint32_t n);
   DenseMatrix(uint32_t m, uint32_t n);
   DenseMatrix(DenseMatrix&& other);
   virtual ~DenseMatrix();

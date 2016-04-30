@@ -23,7 +23,7 @@ MathVector<T>::MathVector()
 }
 
 template <typename T>
-MathVector<T>::MathVector(unsigned long capacity)
+MathVector<T>::MathVector(uint32_t capacity)
 {
   this->m_size = 0;
   this->m_capacity = capacity;
@@ -41,7 +41,7 @@ MathVector<T>::MathVector(const MathVector& other)
 
   // Set arrays equal
   this->m_elements = new T[this->m_capacity]();
-  for(unsigned long i = 0; i < this->m_size; i++)
+  for(uint32_t i = 0; i < this->m_size; i++)
   {
     this->m_elements[i] = other.m_elements[i];
   }
@@ -63,13 +63,13 @@ MathVector<T>::~MathVector()
 }
 
 template <typename T>
-unsigned long MathVector<T>::size() const
+uint32_t MathVector<T>::size() const
 {
   return this->m_size;
 }
 
 template <typename T>
-unsigned long MathVector<T>::capacity() const
+uint32_t MathVector<T>::capacity() const
 {
   return this->m_capacity;
 }
@@ -89,7 +89,7 @@ bool MathVector<T>::push(T element)
 
       // Allocate new size & old data to temp ptr
       temp = new T[this->m_capacity]();
-      for (unsigned long i = 0; i < this->m_size; i++)
+      for (uint32_t i = 0; i < this->m_size; i++)
       {
         temp[i] = this->m_elements[i];
       }
@@ -117,7 +117,7 @@ bool MathVector<T>::push(T element)
 template <typename T>
 void MathVector<T>::setToZeroVector()
 {
-  for(unsigned long i = 0; i < m_capacity; i++)
+  for(uint32_t i = 0; i < m_capacity; i++)
     m_elements[i] = 0;
   m_size = 0;
   return;
@@ -127,13 +127,13 @@ template <typename T>
 T MathVector<T>::magnitude()
 {
   T sumOfSquares = 0;
-  for(unsigned long i = 0; i < m_size; i++)
+  for(uint32_t i = 0; i < m_size; i++)
     sumOfSquares += pow(m_elements[i], 2);
   return sqrt(sumOfSquares);
 }
 
 template <typename T>
-T& MathVector<T>::operator[](unsigned long index)
+T& MathVector<T>::operator[](uint32_t index)
 {
   if(index < 0 || index >= this->m_size)
   {
@@ -158,7 +158,7 @@ MathVector<T>& MathVector<T>::operator +=(const MathVector<T>& rhs)
   {
     cerr << "Sizes not equal + operator" << endl;
   }
-  for(unsigned long i = 0; i < this->m_size; i++)
+  for(uint32_t i = 0; i < this->m_size; i++)
   {
     this->m_elements[i] += rhs.m_elements[i];
   }
@@ -173,7 +173,7 @@ MathVector<T>& MathVector<T>::operator-=(const MathVector <T>& rhs)
   {
     cerr << "Sizes not equal - operator" << endl;
   }
-  for(unsigned long i = 0; i < this->m_size; i++)
+  for(uint32_t i = 0; i < this->m_size; i++)
   {
     this->m_elements[i] -= rhs.m_elements[i];
   }
@@ -185,7 +185,7 @@ template <typename T>
 bool MathVector<T>::operator==(const MathVector<T>& rhs)
 {
   int x, y;
-  for(unsigned long i = 0; i < this->m_size; i++)
+  for(uint32_t i = 0; i < this->m_size; i++)
   {
     x = (int) (rhs.m_elements[i] * 1000000);
     y = (int) (this->m_elements[i] * 1000000);
@@ -215,7 +215,7 @@ template <typename T>
 MathVector<T> operator *(double c, const MathVector<T>& rhs)
 {
   MathVector<T> ret(rhs);
-  for(unsigned long i = 0; i < ret.m_size; i++)
+  for(uint32_t i = 0; i < ret.m_size; i++)
   {
     ret.m_elements[i] *= c;
   }
@@ -232,7 +232,7 @@ T operator *(const MathVector<T>& lhs, const MathVector<T>& rhs)
   }
 
   T ret = 0;
-  for(unsigned long i = 0; i < lhs.m_size; i++)
+  for(uint32_t i = 0; i < lhs.m_size; i++)
   {
     ret += lhs.m_elements[i] * rhs.m_elements[i];
   }
@@ -243,7 +243,7 @@ T operator *(const MathVector<T>& lhs, const MathVector<T>& rhs)
 template <typename T>
 ostream& operator <<(ostream& out, const MathVector<T>& rhs)
 {
-  for(unsigned long i = 0; i < rhs.m_size; i++)
+  for(uint32_t i = 0; i < rhs.m_size; i++)
   {
     if(i == rhs.m_size - 1)
     {

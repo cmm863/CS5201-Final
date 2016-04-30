@@ -29,7 +29,7 @@ MathVector<T> QRDecomp::operator()(const shared_ptr<BaseMatrix<T>> A, int iterat
       Ak = (*R) * (*Q);
 
     // Load current eigenvalues
-    for(unsigned long i = 0; i < Ak->getNumRows(); i++)
+    for(uint32_t i = 0; i < Ak->getNumRows(); i++)
       currentEigen.push((*Ak)(i, i));
 
     // If it's past the first iteration check to end
@@ -65,7 +65,7 @@ void QRDecomp::operator ()(const shared_ptr<BaseMatrix<T>>& A, shared_ptr<BaseMa
   Qt = A->clone()->transpose();
   X = Qt->clone();
 
-  for (unsigned long i = 0; i < A->getNumColumns(); i++)
+  for (uint32_t i = 0; i < A->getNumColumns(); i++)
   {
     // Subtract projections
     for (long j = i - 1; j >= 0; j--)

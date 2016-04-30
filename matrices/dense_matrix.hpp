@@ -29,6 +29,20 @@ DenseMatrix<T>::DenseMatrix(const shared_ptr<BaseMatrix<T>> rhs)
 }
 
 template <typename T>
+DenseMatrix<T>::DenseMatrix(uint32_t n)
+{
+  this->m_num_rows = n;
+  this->m_num_columns = n;
+  this->m_vectors = new MathVector<T>[this->m_num_rows];
+  for(uint32_t i = 0; i < n; i++)
+  {
+    this->m_vectors[i] = MathVector<T>(n);
+    for(uint32_t j = 0; j < this->m_vectors[i].capacity(); j++)
+      this->m_vectors[i].push(0);
+  }
+}
+
+template <typename T>
 DenseMatrix<T>::DenseMatrix(uint32_t m, uint32_t n)
 {
   this->m_num_rows = m;
@@ -113,7 +127,7 @@ DenseMatrix<T>& DenseMatrix<T>::operator =(DenseMatrix<T> other)
 template <typename T>
 DenseMatrix<T> DenseMatrix<T>::operator*(double c) const
 {
-  DenseMatrix ret(this->clone());
+  DenseMatrix<T> ret(this->clone());
   for(uint32_t i = 0; i < ret.getNumRows(); i++)
     ret[i] = c * ret[i];
   return ret;
@@ -125,7 +139,7 @@ DenseMatrix<T> DenseMatrix<T>::operator+(const BaseMatrix<T>& rhs) const
   if(this->m_num_columns != rhs.getNumColumns() || this->m_num_rows != rhs.getNumRows())
     throw domain_error("Sizes not equal. + DenseMatrix");
 
-  DenseMatrix ret(this->clone());
+  DenseMatrix<T> ret(this->clone());
   for(uint32_t i = 0; i < ret.getNumRows(); i++)
     ret[i] += rhs[i];
   return ret;
@@ -138,7 +152,7 @@ DenseMatrix<T> DenseMatrix<T>::operator-(const BaseMatrix<T>& rhs) const
   if(this->m_num_columns != rhs.getNumColumns() || this->m_num_rows != rhs.getNumRows())
     throw domain_error("Sizes not equal. - DenseMatrix");
 
-  DenseMatrix ret(this->clone());
+  DenseMatrix<T> ret(this->clone());
   for(uint32_t i = 0; i < ret.getNumRows(); i++)
     ret[i] -= rhs[i];
   return ret;
@@ -150,7 +164,7 @@ DenseMatrix<T> DenseMatrix<T>::operator*(const BaseMatrix<T>& rhs) const
   if(this->getNumColumns() != rhs.getNumRows())
     throw domain_error("Matrix sizes not compatible: * DenseMatrix.");
 
-  DenseMatrix ret(this->getNumRows(), rhs.getNumColumns());
+  DenseMatrix<T> ret(this->getNumRows(), rhs.getNumColumns());
   for(uint32_t i = 0; i < ret.getNumRows(); i++)
     for(uint32_t j = 0; j < ret.getNumColumns(); j++)
       for(uint32_t k = 0; k < this->getNumColumns(); k++)
