@@ -8,9 +8,9 @@
 #define QR_DECOMP_HPP
 
 template <typename T>
-MathVector<T> QRDecomp::operator()(const shared_ptr<BaseMatrix<T>> A, int iterations) const
+MathVector<T> QRDecomp::operator()(const unique_ptr<BaseMatrix<T>> A, int iterations) const
 {
-  shared_ptr<BaseMatrix<T>> Ak, Q, R;
+  unique_ptr<BaseMatrix<T>> Ak, Q, R;
 
   // Eigenvalues to check for termination
   MathVector<T> pastEigen(A->getNumRows());
@@ -56,9 +56,9 @@ MathVector<T> QRDecomp::operator()(const shared_ptr<BaseMatrix<T>> A, int iterat
 }
 
 template <typename T>
-void QRDecomp::operator ()(const shared_ptr<BaseMatrix<T>>& A, shared_ptr<BaseMatrix<T>>& Q, shared_ptr<BaseMatrix<T>>& R) const
+void QRDecomp::operator ()(const unique_ptr<BaseMatrix<T>>& A, unique_ptr<BaseMatrix<T>>& Q, unique_ptr<BaseMatrix<T>>& R) const
 {
-  shared_ptr<BaseMatrix<T>> Qt, X;
+  unique_ptr<BaseMatrix<T>> Qt, X;
   double top, bottom;
   MathVector<T> temp;
 

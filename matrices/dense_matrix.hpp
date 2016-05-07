@@ -16,7 +16,7 @@ DenseMatrix<T>::DenseMatrix()
 }
 
 template <typename T>
-DenseMatrix<T>::DenseMatrix(const shared_ptr<BaseMatrix<T>> rhs)
+DenseMatrix<T>::DenseMatrix(const unique_ptr<BaseMatrix<T>> rhs)
 {
   this->m_num_rows = rhs->getNumRows();
   this->m_num_columns = rhs->getNumColumns();
@@ -107,9 +107,9 @@ void DenseMatrix<T>::operator()(uint32_t row_index, uint32_t column_index, T ele
 }
 
 template <typename T>
-shared_ptr<BaseMatrix<T>> DenseMatrix<T>::transpose() const
+unique_ptr<BaseMatrix<T>> DenseMatrix<T>::transpose() const
 {
-  shared_ptr<BaseMatrix<T>> ret = make_shared<DenseMatrix<T>>(this->getNumColumns(), this->getNumRows());
+  unique_ptr<BaseMatrix<T>> ret = make_unique<DenseMatrix<T>>(this->getNumColumns(), this->getNumRows());
   for(uint32_t i = 0; i < ret->getNumRows(); i++)
     for(uint32_t j = 0; j < ret->getNumColumns(); j++)
       (*ret)[i][j] = (*this)(j, i);
@@ -174,9 +174,9 @@ DenseMatrix<T> DenseMatrix<T>::operator*(const BaseMatrix<T>& rhs) const
 }
 
 template <typename T>
-shared_ptr<BaseMatrix<T>> DenseMatrix<T>::clone() const
+unique_ptr<BaseMatrix<T>> DenseMatrix<T>::clone() const
 {
-  shared_ptr<BaseMatrix<T>> ret = make_shared<DenseMatrix<T>>(this->m_num_rows, this->m_num_columns);
+  unique_ptr<BaseMatrix<T>> ret = make_unique<DenseMatrix<T>>(this->m_num_rows, this->m_num_columns);
   for (uint32_t i = 0; i < this->m_num_rows; i++)
     (*ret)[i] = this->m_vectors[i];
   return ret;

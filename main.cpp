@@ -7,6 +7,7 @@
 #include "matrices/dense_matrix.h"
 #include "matrices/upper_tri_matrix.h"
 #include "utilities/constants.hpp"
+#include "solvers/gaussian_solver.h"
 
 using namespace std;
 
@@ -17,7 +18,9 @@ string get_input_file(MatrixType mt);
 
 int main()
 {
-  run_generic_test<UpperTriMatrix<double>, double>(UPPER_TRIANGULAR);
+  GaussianSolver s;
+  
+  //run_generic_test<UpperTriMatrix<double>, double>(UPPER_TRIANGULAR);
 
   return 0;
 }

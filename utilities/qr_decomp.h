@@ -11,7 +11,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn void operator ()(const shared_ptr<BaseMatrix<T>> A, int iterations) const
+/// @fn void operator ()(const unique_ptr<BaseMatrix<T>> A, int iterations) const
 /// @brief Overloads the () operator to act as a function class.
 /// @pre Matrix A passed should be representable as a square dense matrix
 /// @post Prints A, Q, R, and the eigenvalues derived after all iterations
@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn void operator ()(const shared_ptr<BaseMatrix<T>>& A, shared_ptr<BaseMatrix<T>>& Q, shared_ptr<BaseMatrix<T>>& R) const
+/// @fn void operator ()(const unique_ptr<BaseMatrix<T>>& A, unique_ptr<BaseMatrix<T>>& Q, unique_ptr<BaseMatrix<T>>& R) const
 /// @brief Overloads the () operator to act as a function class.
 /// @pre Matrix A passed should be representable as a square dense matrix
 /// @post Q and R are returned as the Q and R factored from A
@@ -38,10 +38,10 @@ class QRDecomp
 {
 public:
   template <typename T>
-  MathVector<T> operator ()(const shared_ptr<BaseMatrix<T>> A, int iterations) const;
+  MathVector<T> operator ()(const unique_ptr<BaseMatrix<T>> A, int iterations) const;
 
   template <typename T>
-  void operator ()(const shared_ptr<BaseMatrix<T>>& A, shared_ptr<BaseMatrix<T>>& Q, shared_ptr<BaseMatrix<T>>& R) const;
+  void operator ()(const unique_ptr<BaseMatrix<T>>& A, unique_ptr<BaseMatrix<T>>& Q, unique_ptr<BaseMatrix<T>>& R) const;
 
   string termination_reason() { return "Eigenvalues did not differ in two consecutive runs by a margin of 7 decimal points."; }
 };

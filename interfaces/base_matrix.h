@@ -82,7 +82,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual shared_ptr<BaseMatrix<T>> transpose() const
+/// @fn virtual unique_ptr<BaseMatrix<T>> transpose() const
 /// @brief Virtual function to return a pointer to a new object that is the transpose of
 ///      the called object.
 /// @pre None.
@@ -91,7 +91,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual shared_ptr<BaseMatrix<T>> operator *(double c) const
+/// @fn virtual unique_ptr<BaseMatrix<T>> operator *(double c) const
 /// @brief Virtual function to implement an overload on the * scalar operator.
 /// @pre T needs to have a * operator defined.
 /// @post Returns a pointer to a new object that is the old object * a constant c.
@@ -100,7 +100,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual shared_ptr<BaseMatrix<T>> operator +(const BaseMatrix<T>& rhs) const
+/// @fn virtual unique_ptr<BaseMatrix<T>> operator +(const BaseMatrix<T>& rhs) const
 /// @brief Virtual function to implement an overload on the + operator.
 /// @pre T needs to have a + operator defined.
 ///      The sizes of the matrices (rows and columns) must be equal.
@@ -110,7 +110,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual shared_ptr<BaseMatrix<T>> operator -(const BaseMatrix<T>& rhs) const
+/// @fn virtual unique_ptr<BaseMatrix<T>> operator -(const BaseMatrix<T>& rhs) const
 /// @brief Virtual function to implement an overload on the - operator.
 /// @pre T needs to have a - operator defined.
 ///      The sizes of the matrices (rows and columns) must be equal.
@@ -120,7 +120,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual shared_ptr<BaseMatrix<T>> operator *(const BaseMatrix<T>& rhs) const
+/// @fn virtual unique_ptr<BaseMatrix<T>> operator *(const BaseMatrix<T>& rhs) const
 /// @brief Virtual function to implement an overload on the * operator.
 /// @pre T needs to have a * operator defined.
 ///      The number of rows for rhs, must equal the number of columns for the called matrix.
@@ -130,7 +130,7 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual shared_ptr<BaseMatrix<T>> clone() const
+/// @fn virtual unique_ptr<BaseMatrix<T>> clone() const
 /// @brief Virtual function to replace a copy constructor. Returns a copy of called object.
 /// @pre None.
 /// @post Returns a pointer to a new object that is a clone of the called object.
@@ -196,10 +196,10 @@ public:
   virtual void operator ()(uint32_t row_index, uint32_t column_index, T element) = 0;
 
   // Matrix operations
-  virtual shared_ptr<BaseMatrix<T>> transpose() const = 0;
+  virtual unique_ptr<BaseMatrix<T>> transpose() const = 0;
 
   // Replacements for operations that don't work with inherited classes
-  virtual shared_ptr<BaseMatrix<T>> clone() const = 0;
+  virtual unique_ptr<BaseMatrix<T>> clone() const = 0;
 
 
   friend ostream& operator << <>(ostream& out, const BaseMatrix<T>& rhs);

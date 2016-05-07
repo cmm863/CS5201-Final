@@ -16,7 +16,7 @@ UpperTriMatrix<T>::UpperTriMatrix()
 }
 
 template <typename T>
-UpperTriMatrix<T>::UpperTriMatrix(const shared_ptr<BaseMatrix<T>> rhs)
+UpperTriMatrix<T>::UpperTriMatrix(const unique_ptr<BaseMatrix<T>> rhs)
 {
   this->m_num_rows = rhs->getNumRows();
   this->m_num_columns = rhs->getNumColumns();
@@ -113,7 +113,7 @@ void UpperTriMatrix<T>::operator()(uint32_t row_index, uint32_t column_index, T 
 }
 
 template <typename T>
-shared_ptr<BaseMatrix<T>> UpperTriMatrix<T>::transpose() const
+unique_ptr<BaseMatrix<T>> UpperTriMatrix<T>::transpose() const
 {
   return nullptr;
 }
@@ -176,9 +176,9 @@ UpperTriMatrix<T> UpperTriMatrix<T>::operator*(const UpperTriMatrix<T>& rhs) con
 }
 
 template <typename T>
-shared_ptr<BaseMatrix<T>> UpperTriMatrix<T>::clone() const
+unique_ptr<BaseMatrix<T>> UpperTriMatrix<T>::clone() const
 {
-  shared_ptr<BaseMatrix<T>> ret = make_shared<UpperTriMatrix>(this->m_num_rows);
+  unique_ptr<BaseMatrix<T>> ret = make_unique<UpperTriMatrix>(this->m_num_rows);
   for(uint32_t i = 0; i < this->m_num_rows; i++)
     (*ret)[i] = this->m_vectors[i];
 

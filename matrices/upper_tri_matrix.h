@@ -51,27 +51,27 @@
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual shared_ptr<BaseMatrix<T>> transpose() const
+/// @fn virtual unique_ptr<BaseMatrix<T>> transpose() const
 /// @optimization Returns a LowerTriMatrix.
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual shared_ptr<BaseMatrix<T>> operator +(const BaseMatrix<T>& rhs) const
+/// @fn virtual unique_ptr<BaseMatrix<T>> operator +(const BaseMatrix<T>& rhs) const
 /// @optimization Makes at most nxn/2 operations.
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual shared_ptr<BaseMatrix<T>> operator -(const BaseMatrix<T>& rhs) const
+/// @fn virtual unique_ptr<BaseMatrix<T>> operator -(const BaseMatrix<T>& rhs) const
 /// @optimization Makes at most nxn/2 operations.
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual shared_ptr<BaseMatrix<T>> operator *(double c) const
+/// @fn virtual unique_ptr<BaseMatrix<T>> operator *(double c) const
 /// @optimization Makes at most nxn/2 operations.
 //////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////////////////////////////////////////
-/// @fn virtual shared_ptr<BaseMatrix<T>> operator *(const BaseMatrix<T>& rhs) const
+/// @fn virtual unique_ptr<BaseMatrix<T>> operator *(const BaseMatrix<T>& rhs) const
 /// @optimization Makes on average n/2 calculations per index of returned matrix.
 /// @return A DenseMatrix pointer is returned.
 //////////////////////////////////////////////////////////////////////
@@ -87,7 +87,7 @@ class UpperTriMatrix: public BaseMatrix<T>
 public:
   // Constructor information
   UpperTriMatrix();
-  UpperTriMatrix(const shared_ptr<BaseMatrix<T>> rhs);
+  UpperTriMatrix(const unique_ptr<BaseMatrix<T>> rhs);
   UpperTriMatrix(uint32_t n);
   UpperTriMatrix(UpperTriMatrix&& other);
   virtual ~UpperTriMatrix();
@@ -102,7 +102,7 @@ public:
   virtual void operator ()(uint32_t row_index, uint32_t column_index, T element);
 
   // Matrix operations
-  virtual shared_ptr<BaseMatrix<T>> transpose() const;
+  virtual unique_ptr<BaseMatrix<T>> transpose() const;
 
   // Operators
   UpperTriMatrix<T>& operator =(UpperTriMatrix<T> other);
@@ -112,7 +112,7 @@ public:
   UpperTriMatrix<T> operator *(const UpperTriMatrix<T>& rhs) const;
 
   // Replacements
-  virtual shared_ptr<BaseMatrix<T>> clone() const;
+  virtual unique_ptr<BaseMatrix<T>> clone() const;
 };
 
 #include "upper_tri_matrix.hpp"
