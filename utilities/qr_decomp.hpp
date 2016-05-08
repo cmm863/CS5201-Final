@@ -26,7 +26,7 @@ MathVector<T> QRDecomp::operator()(const unique_ptr<BaseMatrix<T>> A, int iterat
     if(it == 0)
       Ak = A->clone();
     else
-      Ak = (*R) * (*Q);
+      Ak = ((*R) * (*Q)).clone();
 
     // Load current eigenvalues
     for(uint32_t i = 0; i < Ak->getNumRows(); i++)
@@ -56,33 +56,32 @@ MathVector<T> QRDecomp::operator()(const unique_ptr<BaseMatrix<T>> A, int iterat
 }
 
 template <typename T>
-void QRDecomp::operator ()(const unique_ptr<BaseMatrix<T>>& A, unique_ptr<BaseMatrix<T>>& Q, unique_ptr<BaseMatrix<T>>& R) const
+void QRDecomp::operator ()(const BaseMatrix<T>& A, DenseMatrix<T>& Q, UpperTriMatrix<T>& R) const
 {
-  unique_ptr<BaseMatrix<T>> Qt, X;
+  DenseMatrix<T> Qt, X;
   double top, bottom;
   MathVector<T> temp;
 
-  Qt = A->clone()->transpose();
-  X = Qt->clone();
-
-  for (uint32_t i = 0; i < A->getNumColumns(); i++)
+  Qt = DenseMatrix<T>(A.clone()->transpose());
+  X = DenseMatrix<T>(Qt.clone());
+  for (uint32_t i = 0; i < A.getNumColumns(); i++)
   {
     // Subtract projections
-    for (long j = i - 1; j >= 0; j--)
+    for (int32_t j = i - 1; j >= 0; j--)
     {
-      temp = (*Qt)[j];
-      top = ((*X)[i] * temp);
+      temp = Qt[j];
+      top = X[i] * temp;
       bottom = (temp * temp);
-      (*Qt)[i] -= (top / bottom) * (*Qt)[j];
+      Qt[i] -= (top / bottom) * Qt[j];
     }
 
     // Make Q columns orthonormal
-    (*Qt)[i] = (1.0 / (*Qt)[i].magnitude()) * (*Qt)[i];
+    Qt[i] = (1.0 / Qt[i].magnitude()) * Qt[i];
   }
 
   // Change values of passed in Q and R
-  Q = Qt->transpose();
-  R = (*Qt) * (*A);
+  Q = DenseMatrix<T>(Qt.transpose());
+  R = UpperTriMatrix<T>((Qt * A).clone());
 }
 
 #endif //QR_DECOMP_HPP

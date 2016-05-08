@@ -21,10 +21,17 @@ UpperTriMatrix<T>::UpperTriMatrix(const unique_ptr<BaseMatrix<T>> rhs)
   this->m_num_rows = rhs->getNumRows();
   this->m_num_columns = rhs->getNumColumns();
   this->m_vectors = new MathVector<T>[this->m_num_rows];
+  // Initialize vectors correctly
+  for(uint32_t i = 0; i < this->m_num_rows; i++)
+    for(uint32_t j = i; j < this->m_num_columns; j++)
+      this->m_vectors[i].push(0);
 
   for(uint32_t i = 0; i < this->m_num_rows; i++)
   {
-    this->m_vectors[i] = (*rhs)[i];
+    for(uint32_t j = 0; j < this->m_num_columns; j++)
+    {
+      (*this)(i, j, (*rhs)(i, j));
+    }
   }
 }
 

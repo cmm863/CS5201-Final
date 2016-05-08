@@ -8,6 +8,8 @@
 #include "matrices/upper_tri_matrix.h"
 #include "utilities/constants.hpp"
 #include "solvers/gaussian_solver.h"
+#include "solvers/dirichlet_solver.h"
+#include "solvers/qr_solver.h"
 
 using namespace std;
 
@@ -16,11 +18,10 @@ void run_generic_test(MatrixType mt);
 
 string get_input_file(MatrixType mt);
 
+
 int main()
 {
-  GaussianSolver s;
-  
-  //run_generic_test<UpperTriMatrix<double>, double>(UPPER_TRIANGULAR);
+  run_generic_test<DenseMatrix<long double>, long double>(DENSE);
 
   return 0;
 }
@@ -50,6 +51,7 @@ void run_generic_test(MatrixType mt)
   file_in.close();
 
   MT matrix_b(matrix_a.clone());
+  MathVector<T> b;
 
   cout << "=== Matrix A ===" << endl;
   cout << matrix_a << endl;
@@ -62,6 +64,22 @@ void run_generic_test(MatrixType mt)
   cout << "=== Product ===" << endl;
   cout << matrix_a * matrix_b << endl;
 
+  cout << "=== QRSolver ===" << endl;
+  DirichletSolver<T, QRSolver> qrds(4);
+  qrds.template makeMatrix<constants::xLower, constants::xUpper, constants::yLower, constants::yUpper>(matrix_a, b);
+  cout << qrds(matrix_a, b) << endl;
+
+  cout << "=== GaussianSolver ===";
+  DirichletSolver<T, GaussianSolver> gsds(4);
+  gsds.template makeMatrix<constants::xLower, constants::xUpper, constants::yLower, constants::yUpper>(matrix_a, b);
+  cout << gsds(matrix_a, b) << endl;
+  //QRSolver qrs;
+  
+  //cout << solution << endl;
+  //cout << qrs(matrix_a, solution) << endl;
+
+  
+  
   return;
 }
 

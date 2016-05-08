@@ -23,6 +23,27 @@ namespace constants
   const std::string LOWER_TRIANGULAR_TEST_TITLE = "=== Lower Triangular Matrix Test ===";
   const std::string UPPER_TRIANGULAR_TEST_TITLE = "=== Upper Triangular Matrix Test ===";
   const std::string SYMMETRIC_TEST_TITLE = "=== Symmetric Matrix Test ===";
+
+  // Functions
+  long double xLower(long double y)
+  {
+    return 1 + pow(y,2);
+  }
+
+  long double xUpper(long double y)
+  {
+    return 0;
+  }
+
+  long double yLower(long double x)
+  {
+    return 1 - pow(x,2);
+  }
+
+  long double yUpper(long double x)
+  {
+    return 2 * (1 - pow(x,2));
+  }
 }
 
 #endif //CONSTANTS_HPP

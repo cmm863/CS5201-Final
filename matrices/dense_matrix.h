@@ -48,6 +48,7 @@ public:
   DenseMatrix(const unique_ptr<BaseMatrix<T>> rhs);
   DenseMatrix(uint32_t n);
   DenseMatrix(uint32_t m, uint32_t n);
+  DenseMatrix(const MathVector<T>& other);
   DenseMatrix(DenseMatrix&& other);
   virtual ~DenseMatrix();
 
@@ -69,6 +70,7 @@ public:
   DenseMatrix<T> operator +(const BaseMatrix<T>& rhs) const;
   DenseMatrix<T> operator -(const BaseMatrix<T>& rhs) const;
   DenseMatrix<T> operator *(const BaseMatrix<T>& rhs) const;
+  MathVector<T> operator *(const MathVector<T>& rhs) const;
 
   // Replacements
   virtual unique_ptr<BaseMatrix<T>> clone() const;

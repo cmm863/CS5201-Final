@@ -24,7 +24,11 @@ DenseMatrix<T>::DenseMatrix(const unique_ptr<BaseMatrix<T>> rhs)
 
   for(uint32_t i = 0; i < this->m_num_rows; i++)
   {
-    this->m_vectors[i] = (*rhs)[i];
+    for(uint32_t j = 0; j < this->m_num_rows; j++)
+    {
+      this->m_vectors[i].push(0);
+      (*this)(i, j, (*rhs)(i, j));
+    }
   }
 }
 
@@ -53,6 +57,20 @@ DenseMatrix<T>::DenseMatrix(uint32_t m, uint32_t n)
     this->m_vectors[i] = MathVector<T>(n);
     for(uint32_t j = 0; j < this->m_vectors[i].capacity(); j++)
       this->m_vectors[i].push(0);
+  }
+}
+
+template <typename T>
+DenseMatrix<T>::DenseMatrix(const MathVector<T>& other)
+{
+  MathVector<T> temp = other;
+  this->m_num_rows = other.size();
+  this->m_num_columns = 1;
+  this->m_vectors = new MathVector<T>[this->m_num_rows];
+  for(uint32_t i = 0; i < this->m_num_rows; i++)
+  {
+    this->m_vectors[i] = MathVector<T>(this->m_num_columns);
+    this->m_vectors[i].push(temp[i]);
   }
 }
 
@@ -170,6 +188,26 @@ DenseMatrix<T> DenseMatrix<T>::operator*(const BaseMatrix<T>& rhs) const
       for(uint32_t k = 0; k < this->getNumColumns(); k++)
         ret[i][j] += (*this)(i, k) * rhs(k, j);
 
+  return ret;
+}
+
+template <typename T>
+MathVector<T> DenseMatrix<T>::operator *(const MathVector<T>& rhs) const
+{
+  if(this->getNumColumns() != rhs.size())
+    throw domain_error("Matrix sizes not compatible: * DenseMatrix.");
+  MathVector<T> temp = rhs;
+  MathVector<T> ret(temp.size());
+  T sum = 0;
+  for(uint32_t i = 0; i < this->getNumRows(); i++)
+  {
+    sum = 0;
+    for(uint32_t j = 0; j < temp.size(); j++)
+    {
+      sum += temp[j] * (*this)(i, j);
+    }
+    ret.push(sum);
+  }
   return ret;
 }
 

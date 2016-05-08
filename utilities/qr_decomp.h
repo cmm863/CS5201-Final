@@ -41,7 +41,7 @@ public:
   MathVector<T> operator ()(const unique_ptr<BaseMatrix<T>> A, int iterations) const;
 
   template <typename T>
-  void operator ()(const unique_ptr<BaseMatrix<T>>& A, unique_ptr<BaseMatrix<T>>& Q, unique_ptr<BaseMatrix<T>>& R) const;
+  void operator ()(const BaseMatrix<T>& A, DenseMatrix<T>& Q, UpperTriMatrix<T>& R) const;
 
   string termination_reason() { return "Eigenvalues did not differ in two consecutive runs by a margin of 7 decimal points."; }
 };

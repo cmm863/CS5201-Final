@@ -1,12 +1,14 @@
 #pragma once
 
 #include "../matrices/dense_matrix.h"
+#include "../utilities/qr_decomp.h"
+#include "gaussian_solver.h"
 
-class GaussianSolver
+class QRSolver
 {
 public:
-	template <typename T>
+  template <typename T>
   MathVector<T> operator()(const DenseMatrix<T>& m, const MathVector<T>& s);
 };
 
-#include "gaussian_solver.hpp"
+#include "qr_solver.hpp"
